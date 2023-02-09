@@ -9,6 +9,7 @@ module.exports = class Cart {
 
     constructor(items) {
 
+        //forced to do so because of total_EmptyCart_ThrowException test
         this.#items = items;
 
     }
@@ -29,41 +30,36 @@ module.exports = class Cart {
             throw new EmptyCartException();
 
         }
-        let sum = 0;
-
-        this.#items.forEach(calculateTotal);
-
-        function calculateTotal(item) {
-
-            sum += item.price * item.quantity;
-        }
-
-        return sum;
+        return this.calculateTotal(this.#items, false, true);
     }
 
-    count(sumTotal) {
+    count(isSum) {
 
         if (this.#items == null) {
 
             throw new EmptyCartException();
 
         }
-        let sum = 0;
 
 
-        this.#items.forEach(calculateTotal);
+        return this.calculateTotal(this.#items, isSum, false);
+    }
 
-        function calculateTotal(item) {
+    calculateTotal(items, isSum, isTotal) {
+        let sum = 0
 
-            if (sumTotal) {
+        items.forEach(function (item) {
+            if (isSum) {
                 sum += 1;
+            } else if (isTotal) {
+                sum += item.price * item.quantity;
             } else {
                 sum += item.quantity;
+
             }
-        }
 
-
-        return sum;
+        });
+        return sum
     }
 
     add(item) {

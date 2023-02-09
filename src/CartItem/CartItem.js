@@ -21,22 +21,11 @@ module.exports = class CartItem {
 
         }
 
-        if(quantity < 0){
-
-            throw new InvalidQuantityException();
-
-        }
-
-        if(price < 10){
-
-            throw new InvalidPriceException();
-
-        }
-
         this.#articleId = articleId;
         this.#name = name;
-        this.#quantity = quantity;
-        this.#price = price;
+
+        this.quantity = quantity;
+        this.price = price;
     }
 
     get articleId() {
