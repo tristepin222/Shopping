@@ -6,58 +6,78 @@ const UpdateCartException = require("./UpdateCartException.js");
 module.exports = class Cart {
 
     #items;
+
     constructor(items) {
 
-            this.#items = items;
+        this.#items = items;
 
     }
 
     get items() {
-        if(this.#items == null){
+        if (this.#items == null) {
+
             throw new EmptyCartException();
+
         }
+
         return this.#items;
     }
-    get total(){
-        if(this.#items == null){
+
+    get total() {
+        if (this.#items == null) {
+
             throw new EmptyCartException();
+
         }
         let sum = 0;
-       this.#items.forEach(calculateTotal);
-       function  calculateTotal(item){
+
+        this.#items.forEach(calculateTotal);
+
+        function calculateTotal(item) {
+
             sum += item.price * item.quantity;
-       }
-       return sum;
+        }
+
+        return sum;
     }
-    count(sumTotal){
-        if(this.#items == null){
+
+    count(sumTotal) {
+
+        if (this.#items == null) {
+
             throw new EmptyCartException();
+
         }
         let sum = 0;
-        if(sumTotal) {
 
 
-            this.#items.forEach(calculateTotal);
+        this.#items.forEach(calculateTotal);
 
-            function calculateTotal(item) {
+        function calculateTotal(item) {
+
+            if (sumTotal) {
                 sum += 1;
-            }
-        }else{
-            this.#items.forEach(calculateTotalWithItem);
-
-            function calculateTotalWithItem(item) {
+            } else {
                 sum += item.quantity;
             }
         }
+
+
         return sum;
     }
-    add(item){
-        if(item == null){
+
+    add(item) {
+
+        if (item == null) {
+
             throw new UpdateCartException();
+
         }
-        if(this.#items == null){
+        if (this.#items == null) {
+
             this.#items = item;
-        }else {
+
+        } else {
 
             this.#items.push(item);
         }
