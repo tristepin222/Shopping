@@ -3,7 +3,7 @@
  * @brief     This class is designed to test the behaviour of a cartItem.
  * @author    Created by Nicolas.GLASSEY
  * @version   13-02-2022 - original (dedicated to RIA1)
- * @version   28-02-2023 - update for first eval
+ * @version   08-03-2022 - update
  */
 
 "use strict";
@@ -28,12 +28,12 @@ test('allGetters_NominalCaseWithDefaultCurrency_Success', () => {
     //we call the getters directly in assertion below
 
     //then
-    expect(articleId).toEqual(cartItem.articleId);
-    expect(name).toEqual(cartItem.name);
-    expect(quantity).toEqual(cartItem.quantity);
-    expect(price).toEqual(cartItem.price);
-    expect(currency).toEqual(cartItem.currency);
-    expect(total).toEqual(cartItem.total);
+    expect(cartItem.articleId).toEqual(articleId);
+    expect(cartItem.name).toEqual(name);
+    expect(cartItem.quantity).toEqual(quantity);
+    expect(cartItem.price).toEqual(price);
+    expect(cartItem.currency).toEqual(currency);
+    expect(cartItem.total).toEqual(total);
 })
 
 test('allGetters_NominalCaseWithValidCustomCurrency_Success', () => {
@@ -50,12 +50,12 @@ test('allGetters_NominalCaseWithValidCustomCurrency_Success', () => {
     //we call the getters directly in assertion below
 
     //then
-    expect(articleId).toEqual(cartItem.articleId);
-    expect(name).toEqual(cartItem.name);
-    expect(quantity).toEqual(cartItem.quantity);
-    expect(price).toEqual(cartItem.price);
-    expect(currency).toEqual(cartItem.currency);
-    expect(total).toEqual(cartItem.total);
+    expect(cartItem.articleId).toEqual(articleId);
+    expect(cartItem.name).toEqual(name);
+    expect(cartItem.quantity).toEqual(quantity);
+    expect(cartItem.price).toEqual(price);
+    expect(cartItem.currency).toEqual(currency);
+    expect(cartItem.total).toEqual(total);
 })
 
 test('allGetters_NominalCaseWithInvalidCustomCurrency_ThrowException', () => {

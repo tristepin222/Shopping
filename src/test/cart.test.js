@@ -3,7 +3,7 @@
  * @brief     This class is designed to test the behaviour of a cart.
  * @author    Created by Nicolas.GLASSEY
  * @version   13-02-2022 - original (dedicated to RIA1)
- * @version   28-02-2023 - update for first eval
+ * @version   27-02-2023 - update for first eval
  */
 
 "use strict";
