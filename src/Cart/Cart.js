@@ -2,35 +2,57 @@
 
 const EmptyCartException = require("./EmptyCartException.js");
 const UpdateCartException = require("./UpdateCartException.js");
+const MultipleCurrenciesException = require("./MultipleCurrenciesException.js");
 module.exports = class Cart {
   #items;
+  #currency;
+  constructor(items, currency = "CHF") {
 
-  constructor(items) {
-    //forced to do so because of total_EmptyCart_ThrowException test
+    this.#currency = currency;
     this.#items = items;
-  }
-
-  get items() {
-    if (this.#items == null) {
-      throw new EmptyCartException();
+    if (this.items.length) {
+      this.#currency = items[0].currency
+      if(this.items.length > 1) {
+        if (items[1].currency !== items[0].currency) {
+          throw new MultipleCurrenciesException();
+        }
+      }
+      //doesn't work, code get's executed even if the array is empty
+      //this.#items.forEach(this.checkMultipleCurrencies);
     }
 
-    return this.#items;
+
+
+  }
+
+  checkMultipleCurrencies(item){
+
+    if(item.currency !== Cart.#currency){
+      throw new MultipleCurrenciesException();
+    }
+
+
+  }
+  get items() {
+    if(this.#items == null){
+      return [];
+    }else {
+      return this.#items;
+    }
   }
 
   get total() {
-    if (this.#items == null) {
-      throw new EmptyCartException();
-    }
-    return this.calculateTotal(this.#items, false, true);
+    return this.calculateTotal(this.items, false, true);
   }
-
+  get currency(){
+    return this.#currency;
+  }
   count(isSum) {
     if (this.#items == null) {
       throw new EmptyCartException();
     }
 
-    return this.calculateTotal(this.#items, isSum, false);
+    return this.calculateTotal(this.items, isSum, false);
   }
 
   calculateTotal(items, isSum, isTotal) {
@@ -40,6 +62,7 @@ module.exports = class Cart {
       if (isSum) {
         sum += 1;
       } else if (isTotal) {
+
         sum += item.price * item.quantity;
       } else {
         sum += item.quantity;
@@ -49,8 +72,12 @@ module.exports = class Cart {
   }
 
   add(item) {
-    if (item == null) {
-      throw new UpdateCartException();
+
+    if(this.items){
+      if(item[0].currency !== this.#currency){
+
+        throw  new MultipleCurrenciesException();
+      }
     }
     if (this.#items == null) {
       this.#items = item;
